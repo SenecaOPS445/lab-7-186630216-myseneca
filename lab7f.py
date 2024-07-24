@@ -14,6 +14,22 @@ class Time:
         self.minute = minute
         self.second = second
 
+    def __str__(self):
+        '''return a string representation for the object self'''
+        return '%.2d:%.2d:%.2d' % (self.hour, self.minute, self.second)
+
+    def __repr__(self):
+        '''return a string representation for the object self'''
+        '''just instead of ':', you are required use the '.'  in the formatting string.'''
+        return '%.2d.%.2d.%.2d' % (self.hour, self.minute, self.second)
+
+    def __add__(self, t2):
+        """return the result by using sum_times() method"""
+        self_sec = self.time_to_sec()
+        t2_sec = t2.time_to_sec()
+        sum = sec_to_time(self_sec + t2_sec)
+        return sum
+
     def format_time(self):
         """Return time object (t) as a formatted string"""
         return f'{self.hour:02d}:{self.minute:02d}:{self.second:02d}'
@@ -46,14 +62,6 @@ class Time:
         if self.minute >= 60 or self.second >= 60 or self.hour >= 24:
             return False
         return True
-
-def sec_to_time(seconds):
-    '''convert a given number of seconds to a time object in 
-        hour, minute, second format'''
-    time = Time()
-    minutes, time.second = divmod(seconds, 60)
-    time.hour, time.minute = divmod(minutes, 60)
-    return time
 
 def sec_to_time(seconds):
     '''convert a given number of seconds to a time object in 
